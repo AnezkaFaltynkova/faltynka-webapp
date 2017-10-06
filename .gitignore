@@ -1,0 +1,11 @@
+elm-stuff
+elm.js
+.idea
+*.iml
+target
+.classpath
+.project
+.settings
+out
+.DS_Store
+*.log*
