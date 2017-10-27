@@ -1,36 +1,66 @@
-import Html exposing (Html, Attribute, div, input, text)
+import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (..)
+import Http
+import Json.Decode as Decode
 
 
 main =
-  Html.beginnerProgram { model = model, view = view, update = update }
+  Html.program { init = init, view = view, update = update, subscriptions = subscriptions }
 
 -- MODEL
 
 type alias Model =
-  { content : String
+  { status : String
   }
 
-model : Model
-model =
-  { content = "Hello World!" }
+init =
+  ( Model "Default Status"
+  , Cmd.none
+  )
 
 
 -- UPDATE
 
 type Msg
-  = Change String
+  = StatusFetch (Result Http.Error String)
+  | FetchStatus
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg)
 update msg model =
   case msg of
-    Change newContent ->
-      { model | content = newContent }
+    FetchStatus ->
+      ( model, getStatus )
 
+    StatusFetch (Ok incomingStatus) ->
+      ( { model | status = incomingStatus }, Cmd.none )
+
+    StatusFetch (Err error) ->
+      ( { model | status = toString error }, Cmd.none )
+
+-- HTTP
+
+getStatus : Cmd Msg
+getStatus =
+  Http.send StatusFetch (Http.get "http://localhost:8888/alive" decodeStatus)
+
+decodeStatus : Decode.Decoder String
+decodeStatus =
+  Decode.field "status" Decode.string
 
 -- VIEW
 
 view : Model -> Html Msg
 view model =
-   div [] [ text (model.content) ]
+  div []
+     [ button [ onClick FetchStatus ] [ text "Get Status" ]
+     , h2 [] [text model.status]
+     ]
+
+
+
+-- SUBSCRIPTIONS
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Sub.none
