@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "del": "^2.1.0",
+    "gulp": "^3.9.0",
+    "gulp-elm": "^0.2.0",
+    "gulp-install": "^1.1.0",
+    "gulp-plumber": "^1.0.1"
+  },
+  "scripts": {
+    "dev": "gulp clean && gulp dev",
+    "build": "gulp clean && gulp build"
+  },
+  "dependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-elm": "^0.7.2",
+    "gulp-install": "^1.1.0",
+    "gulp-plumber": "^1.1.0"
+  }
+}
