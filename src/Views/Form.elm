@@ -1,4 +1,4 @@
-module Views.Form exposing (input, password, textarea, viewErrors)
+module Views.Form exposing (input, password, textarea)
 
 import Html exposing (Attribute, Html, fieldset, li, text, ul)
 import Html.Attributes exposing (class, type_)
@@ -17,15 +17,6 @@ input attrs =
 textarea : List (Attribute msg) -> List (Html msg) -> Html msg
 textarea =
     control Html.textarea
-
-
-viewErrors : List ( a, String ) -> Html msg
-viewErrors errors =
-    errors
-        |> List.map (\( _, error ) -> li [] [ text error ])
-        |> ul [ class "error-messages" ]
-
-
 
 -- INTERNAL --
 
