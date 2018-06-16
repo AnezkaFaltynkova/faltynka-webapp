@@ -1,4 +1,4 @@
-module Views.Form exposing (input, password, textarea)
+module Views.Form exposing (input, password, textarea, number)
 
 import Html exposing (Attribute, Html, fieldset, li, text, ul)
 import Html.Attributes exposing (class, type_)
@@ -12,6 +12,10 @@ password attrs =
 input : List (Attribute msg) -> List (Html msg) -> Html msg
 input attrs =
     control Html.input ([ type_ "text" ] ++ attrs)
+
+number : List (Attribute msg) -> List (Html msg) -> Html msg
+number attrs =
+    control Html.input ([ type_ "number" ] ++ attrs)
 
 
 textarea : List (Attribute msg) -> List (Html msg) -> Html msg

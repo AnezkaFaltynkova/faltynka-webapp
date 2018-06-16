@@ -5,13 +5,15 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Msgs exposing (Msg(..))
 import Views.Form as Form
+import Models exposing (Model)
 
 
-view : Html Msg
-view =
+view : Model -> Html Msg
+view model =
     div []
         [ nav
         , viewForm
+        , text model.textMessage
         ]
 
 
